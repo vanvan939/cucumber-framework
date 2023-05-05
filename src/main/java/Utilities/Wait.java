@@ -36,6 +36,8 @@ public class Wait {
             } else {
                 System.out.println("Document is loading");
                 return false;
+
+
             }
         });
     }

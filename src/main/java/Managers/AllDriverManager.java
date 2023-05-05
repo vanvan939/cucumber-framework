@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AllDriverManager {
 
-    private WebDriver webDriver;
+    private static WebDriver webDriver;
     private static DriverType driverType;
     private static EnvironmentType environmentType;
 
@@ -24,7 +24,7 @@ public class AllDriverManager {
         environmentType = FileReaderManager.getInstance().getConfigFileReader().getEnvironment();
     }
 
-    private WebDriver createLocalDriver() {
+    private static WebDriver createLocalDriver() {
         switch (driverType) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
@@ -55,11 +55,11 @@ public class AllDriverManager {
         return webDriver;
     }
 
-    private WebDriver createRemoteDriver() {
+    private static WebDriver createRemoteDriver() {
         throw new RuntimeException("Remote web driver is not yet implemented");
     }
 
-    private WebDriver createDriver() {
+    private static WebDriver createDriver() {
         switch (environmentType) {
             case LOCAL:
                 webDriver = createLocalDriver();
@@ -71,7 +71,7 @@ public class AllDriverManager {
         return webDriver;
     }
 
-    public WebDriver getDriver() {
+    public static WebDriver getDriver() {
         if (webDriver == null) webDriver = createDriver();
         return webDriver;
     }

@@ -3,24 +3,19 @@ package StepDefinitions;
 import PageObjects.LoginPage;
 import Utilities.ScenarioContext;
 import Utilities.TestContext;
+import core.BasePage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class LoginTestSteps {
-    LoginPage loginPage;
-    TestContext testContext;
-    private static ScenarioContext scenarioContext = new ScenarioContext();
+public class LoginPageSteps {
+    LoginPage loginPage = new LoginPage();
+    BasePage page = new BasePage();
 
-    public LoginTestSteps(TestContext context) {
-        testContext = context;
-        loginPage = testContext.getPageObjectManager().getLoginPage();
-
-    }
     @Given("The user go to page with url {string}")
     public void theUserGoToPageWithUrl(String url) {
-        loginPage.navigateURL(url);
+        loginPage.openPage(url);
     }
 
     @When("The user input username {string} and password {string}")
@@ -36,6 +31,11 @@ public class LoginTestSteps {
 
     @Then("Go to page with title {string}")
     public void goToPageWithTitle(String title) {
-        loginPage.verifyTitlePageAsExpectedResult(title);
+        page.verifyTitlePageAsExpectedResult(title);
+    }
+
+    @Then("Go to Page with logo {string}")
+    public void goToPageWithLogo(String logo) {
+        loginPage.verifyLogoPageAsExpectedResult(logo);
     }
 }

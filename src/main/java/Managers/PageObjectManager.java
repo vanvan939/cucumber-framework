@@ -1,12 +1,14 @@
 package Managers;
 
-import PageObjects.LoginPage;
+import PageObjects.CartPage;
+import PageObjects.InventoryPage;
 import org.openqa.selenium.WebDriver;
 
 public class PageObjectManager {
 
     private final WebDriver webDriver;
-    private LoginPage loginPage;
+    private InventoryPage inventoryPage;
+    private CartPage cartPage;
 
 
     public PageObjectManager(WebDriver webDriver) {
@@ -14,9 +16,13 @@ public class PageObjectManager {
     }
 
     //Short Hand If...Else
-    public LoginPage getLoginPage() {
-        return (loginPage == null) ? loginPage = new LoginPage(webDriver) : loginPage;
+    public InventoryPage getInventorPage() {
+        return (inventoryPage == null) ? inventoryPage = new InventoryPage(webDriver) : inventoryPage;
     }
+    public CartPage getCartPage() {
+        return (cartPage == null) ? cartPage = new CartPage(webDriver) : cartPage;
+    }
+
 
 
 

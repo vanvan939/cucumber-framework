@@ -19,7 +19,8 @@ public class TestContext {
         return driverManager;
     }
 
-    public PageObjectManager getPageObjectManager() {
+    public PageObjectManager
+    getPageObjectManager() {
         return pageObjectManager;
     }
 

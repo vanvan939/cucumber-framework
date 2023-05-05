@@ -1,50 +1,54 @@
 package PageObjects;
 
+import core.BaseLocator;
+import core.BasePage;
 import junit.framework.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import static Managers.AllDriverManager.getDriver;
 
-public class LoginPage {
-    private final WebDriver webDriver;
-    public LoginPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
-        PageFactory.initElements(new AjaxElementLocatorFactory(webDriver, 15), this);
+public class LoginPage extends BasePage {
+    Page page;
+    public LoginPage(){
+        super();
+        page = new Page();
     }
+    class Page{
+        public BaseLocator txtUserName() {
+            return new BaseLocator(By.xpath("//input[@id = 'user-name']"));
+        }
+        public BaseLocator txtPassword() {
+            return new BaseLocator(By.xpath("//input[@id = 'password']"));
+        }
+        public BaseLocator btnLogin() {
+            return new BaseLocator(By.xpath("//input[@id = 'login-button']"));
+        }
+        public BaseLocator titlePage() {
+            return new BaseLocator(By.xpath("//span[@class='title']"));
+        }
+        public BaseLocator loginLogo() {
+            return new BaseLocator(By.xpath("//div[@class='login_logo']"));
+        }
 
-    @FindBy(xpath = "//input[@id = 'user-name']")
-    private WebElement txtUserName;
-    @FindBy(xpath ="//input[@id = 'password']")
-    private WebElement txtPassword;
-    @FindBy(xpath ="//input[@id = 'login-button']")
-    private WebElement btnLogin;
-    @FindBy(xpath ="//span[@class='title']")
-    private WebElement titlePage;
-
-    public void navigateURL(String url) {
-        webDriver.get(url);
+    }
+    @Override
+    public void openPage(String url) {
+        getDriver().get(url);
     }
 
     public void enterUserName(String userName) {
-        txtUserName.isDisplayed();
-        txtUserName.isEnabled();
-        txtUserName.sendKeys(userName);
+        page.txtUserName().sendKeys(userName);
     }
     public void enterPassword(String password) {
-        txtPassword.isDisplayed();
-        txtPassword.isEnabled();
-        txtPassword.sendKeys(password);
+        page.txtPassword().sendKeys(password);
     }
-    public void clickLoginButton() throws InterruptedException {
-        btnLogin.isDisplayed();
-        btnLogin.click();
+    public void clickLoginButton() {
+        page.btnLogin().click();
+    }
+    public void verifyLogoPageAsExpectedResult(String title) {
+        Assert.assertEquals(page.loginLogo().getText(), title);
     }
     public void verifyTitlePageAsExpectedResult(String title) {
-        titlePage.isDisplayed();
-        Assert.assertEquals(titlePage.getText(), title);
+        Assert.assertEquals(page.titlePage().getText(), title);
     }
-
-
 }

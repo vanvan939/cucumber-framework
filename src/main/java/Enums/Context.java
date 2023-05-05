@@ -1,5 +1,6 @@
 package Enums;
 
 public enum Context {
-    EXPECTED_DATA;
+    PRODUCT_NAME_1, PRODUCT_NAME_2;
 }
+
